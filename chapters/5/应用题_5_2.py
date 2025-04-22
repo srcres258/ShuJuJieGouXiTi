@@ -38,20 +38,21 @@
 
 
 class UnionFind2:
+
     def __init__(self):
-        self.parent = {} # parent 字典存储每个节点的父节点。
-        self.rank = {} # rank 字典存储以节点为根的树的高度（用于按高度合并）。
-    
+        self.parent = {}  # parent 字典存储每个节点的父节点。
+        self.rank = {}  # rank 字典存储以节点为根的树的高度（用于按高度合并）。
+
     def add(self, x):
         if x not in self.parent:
             self.parent[x] = x
             self.rank[x] = 1
-    
-    def find(self, x): # find 方法实现路径压缩，使得后续查询更高效。
+
+    def find(self, x):  # find 方法实现路径压缩，使得后续查询更高效。
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
-    
+
     def merge(self, x, y):
         root_x = self.find(x)
         root_y = self.find(y)
@@ -63,32 +64,16 @@ class UnionFind2:
             self.parent[root_y] = root_x
             if self.rank[root_x] == self.rank[root_y]:
                 self.rank[root_x] += 1
-    
+
     def display(self):
         print("Node\tParent\tRank")
         for node in sorted(self.parent.keys()):
             print(f"{node}\t{self.parent[node]}\t{self.rank[node]}")
-            
 
-MERGE_LIST = [
-    (1, 2),
-    (1, 6),
-    (3, 4),
-    (3, 5),
-    (10, 11),
-    (1, 10),
-    (3, 7),
-    (8, 9),
-    (3, 8),
-    (3, 12),
-    (3, 13),
-    (14, 15),
-    (16, 17),
-    (14, 16),
-    (1, 3),
-    (1, 14)
-]
 
+MERGE_LIST = [(1, 2), (1, 6), (3, 4), (3, 5), (10, 11), (1, 10), (3, 7),
+              (8, 9), (3, 8), (3, 12), (3, 13), (14, 15), (16, 17), (14, 16),
+              (1, 3), (1, 14)]
 
 if __name__ == '__main__':
     uf = UnionFind2()

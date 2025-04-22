@@ -38,20 +38,21 @@
 
 
 class UnionFind3:
+
     def __init__(self):
-        self.parent = {} # parent 字典存储每个节点的父节点。
-        self.size = {} # size 字典存储以节点为根的树的节点数（用于按大小合并）。
-    
+        self.parent = {}  # parent 字典存储每个节点的父节点。
+        self.size = {}  # size 字典存储以节点为根的树的节点数（用于按大小合并）。
+
     def add(self, x):
         if x not in self.parent:
             self.parent[x] = x
             self.size[x] = 1
-    
-    def find(self, x): # find 方法实现路径压缩，使得后续查询更高效。
+
+    def find(self, x):  # find 方法实现路径压缩，使得后续查询更高效。
         if self.parent[x] != x:
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
-    
+
     def merge(self, x, y):
         root_x = self.find(x)
         root_y = self.find(y)
@@ -61,32 +62,16 @@ class UnionFind3:
             root_x, root_y = root_y, root_x
         self.parent[root_y] = root_x
         self.size[root_x] += self.size[root_y]
-    
+
     def display(self):
         print("Node\tParent\tSize")
         for node in sorted(self.parent.keys()):
             print(f"{node}\t{self.parent[node]}\t{self.size[node]}")
 
 
-MERGE_LIST = [
-    (1, 2),
-    (1, 6),
-    (3, 4),
-    (3, 5),
-    (10, 11),
-    (1, 10),
-    (3, 7),
-    (8, 9),
-    (3, 8),
-    (3, 12),
-    (3, 13),
-    (14, 15),
-    (16, 17),
-    (14, 16),
-    (1, 3),
-    (1, 14)
-]
-
+MERGE_LIST = [(1, 2), (1, 6), (3, 4), (3, 5), (10, 11), (1, 10), (3, 7),
+              (8, 9), (3, 8), (3, 12), (3, 13), (14, 15), (16, 17), (14, 16),
+              (1, 3), (1, 14)]
 
 if __name__ == '__main__':
     uf = UnionFind3()
