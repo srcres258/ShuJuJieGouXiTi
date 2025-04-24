@@ -11,6 +11,9 @@
 """
 
 
+import numpy as np
+
+
 class DirectedGraph:
 
     def __init__(self):
@@ -83,7 +86,6 @@ if __name__ == '__main__':
     graph.add_edge('3', '2')
     graph.add_edge('3', '6')
 
-    # 补充实现代码
     nodes = sorted(graph.get_nodes(), key=lambda x: int(x))
 
     # 1. 计算入度和出度
